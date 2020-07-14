@@ -1,4 +1,10 @@
 import discord
+import json
+
+filename = 'config.json'
+config_keys = {}
+with open(filename, 'r') as f:
+    config_keys = json.loads(f.read())
 
 client = discord.Client()
 
@@ -25,4 +31,4 @@ async def on_message(message):
 	elif message.content.startswith('$BRB'):
 		await message.channel.send('v0.1')
 
-client.run('NzMyNDE3OTY3ODkxMDIxOTQ0.Xw0ZXw.FbnV25hTSHCHXavReaSx6YB9u1M')
+client.run(config_keys['config'])
