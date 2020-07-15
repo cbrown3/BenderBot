@@ -13,7 +13,11 @@ class Card:
 
 colors = ['heart', 'diamonds', 'spades', 'clubs']
 faces = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']
+kcrules = ['Waterfall', 'Give Drink', 'Take Drink', 'Floor', 'Guys', 'Chicks', 'Heaven', 'Mate', 'Rhyme', 'Categories',
+           'Never have I ever', 'Question-master', 'New Rule']
 deck = [Card(value, color) for value in faces for color in colors]
+for card in deck:
+    print(card.value, card.color)
 
 filename = 'config.json'
 with open(filename, 'r') as f:
@@ -23,21 +27,38 @@ with open(filename, 'r') as f:
 
 bot = cmds.Bot(command_prefix='$')
 
+kclistening = 0
 
-@bot.command(name='kings-cup', help='Plays kings cup with all people mentioned')
+currdeck = []
+playerqueue = []
+
+
+@bot.command(name='kingscup', help='Plays kings cup with all people mentioned')
 async def kingscup(ctx, *args):
+    global currdeck, playerqueue, kclistening
     await ctx.send('{} wants to play kings cup!'.format(ctx.author))
-    kings_deck = deck.copy()
+    currdeck = deck.copy()
     await ctx.send('Playing with {}'.format(', '.join(args)))
-    random.shuffle(kings_deck)
-    done_deck = []
-    while len(kings_deck) > 0:
-        for player in args:
-            await ctx.send('{} picked {} of {}!'.format(player, kings_deck[0].value, kings_deck[0].color))
-            done_deck.insert(0, kings_deck.pop(kings_deck.index(kings_deck[0])))
-            #msg = await ctx.
-            if len(kings_deck) == 0:
-                break
+    random.shuffle(currdeck)
+    for p in args:
+        playerqueue.append(p)
+    kclistening = 1
+
+
+@bot.command(name='kcnext')
+async def next(ctx):
+    global currdeck, playerqueue, kclistening, kcrules, faces
+    if kclistening == 0:
+        await ctx.send('Kings Cup not Initialized')
+        return
+    else:
+        curcard = currdeck.pop()
+        await ctx.send(
+            '{} got {} of {}! They must {}'.format(playerqueue[0], curcard.value, curcard.color, kcrules[faces.index(curcard.value)]))
+        undertab = int(52 - len(deck))
+        random_value = int(random.choice(range(1, 30)))
+        if random_value < undertab:
+            await ctx.send('TAB POPPED! {}')
 
 
 @bot.command(name='gilmoursdreamcar', help='gilmour dream car')
