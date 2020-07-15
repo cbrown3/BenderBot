@@ -31,4 +31,8 @@ async def on_message(message):
 	elif message.content.startswith('$BRB'):
 		await message.channel.send('v0.1')
 
+	elif message.content.startswith('$killbrew'):
+		await message.channel.send('goodbye men')
+		await client.close()
+
 client.run(config_keys['config'])
