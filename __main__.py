@@ -29,5 +29,4 @@ async def thunderstruck(ctx):
                                    source="Sounds/thunderstruck.mp3"),
             after=lambda e: print('done playing', e))
 
-
 bot.run(config_keys['config'])
