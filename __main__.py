@@ -31,8 +31,19 @@ async def on_message(message):
 	elif message.content.startswith('$BRB'):
 		await message.channel.send('v0.1')
 
-	elif message.content.startswith('$killbrew'):
-		await message.channel.send('goodbye men')
+	elif message.content.startswith('$happyhour'):
+		recipient = message.content.split()[1]
+		recipient_id = int(recipient[3: -1])
+		discord_recipient = client.get_user(recipient_id)
+		recipient_dm = discord_recipient.dm_channel
+		if recipient_dm == None:
+			await discord_recipient.create_dm()
+			recipient_dm = discord_recipient.dm_channel
+		message.
+		await recipient_dm.send('test happyhr')
+
+	elif message.content.startswith('$gil_killbrew'):
+		await message.channel.send('goodbye gil')
 		await client.close()
 
 client.run(config_keys['config'])
