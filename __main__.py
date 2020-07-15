@@ -59,6 +59,7 @@ async def next(ctx):
         random_value = int(random.choice(range(1, 30)))
         if random_value < undertab:
             await ctx.send('TAB POPPED! {}')
+            kclistening = 0
 
 
 @bot.command(name='gilmoursdreamcar', help='gilmour dream car')
