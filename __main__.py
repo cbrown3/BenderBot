@@ -12,10 +12,10 @@ class Card:
 
 
 colors = ['heart', 'diamonds', 'spades', 'clubs']
-deck = [Card(value, color) for value in range(1, 14) for color in colors]
+faces = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']
+deck = [Card(value, color) for value in faces for color in colors]
 
 filename = 'config.json'
-config_keys = {}
 with open(filename, 'r') as f:
     config_keys = json.loads(f.read())
 
@@ -26,8 +26,24 @@ bot = cmds.Bot(command_prefix='$')
 
 @bot.command(name='kings-cup', help='Plays kings cup with all people mentioned')
 async def kingscup(ctx, *args):
+    await ctx.send('{} wants to play kings cup!'.format(ctx.author))
+    kings_deck = deck.copy()
     await ctx.send('Playing with {}'.format(', '.join(args)))
-    
+    random.shuffle(kings_deck)
+    done_deck = []
+    while len(kings_deck) > 0:
+        for player in args:
+            await ctx.send('{} picked {} of {}!'.format(player, kings_deck[0].value, kings_deck[0].color))
+            done_deck.insert(0, kings_deck.pop(kings_deck.index(kings_deck[0])))
+            #msg = await ctx.
+            if len(kings_deck) == 0:
+                break
+
+
+@bot.command(name='gilmoursdreamcar', help='gilmour dream car')
+async def gilmoursdreamcar(ctx):
+    await ctx.send(
+        'https://en.wikipedia.org/wiki/Koenigsegg_Agera#:~:text=The%20Koenigsegg%20Agera%20is%20a,2010%20by%20Top%20Gear%20magazine')
 
 
 # @bot.command(name='roll_dice', help='Simulates rolling dice.')
