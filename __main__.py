@@ -35,12 +35,15 @@ async def on_message(message):
 		recipient = message.content.split()[1]
 		recipient_id = int(recipient[3: -1])
 		discord_recipient = client.get_user(recipient_id)
+		if discord_recipient == None:
+			await message.channel.send("Could'nt find {0}".format(recipient))
+			return
 		recipient_dm = discord_recipient.dm_channel
 		if recipient_dm == None:
 			await discord_recipient.create_dm()
 			recipient_dm = discord_recipient.dm_channel
-		message.
-		await recipient_dm.send('test happyhr')
+		sender_mention = message.author.mention
+		await recipient_dm.send('Cheers! {0} invites you to Happy Hour in {1}!'.format(sender_mention, message.channel.guild.name))
 
 	elif message.content.startswith('$gil_killbrew'):
 		await message.channel.send('goodbye gil')
