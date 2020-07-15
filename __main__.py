@@ -35,4 +35,12 @@ async def on_message(message):
 		await message.channel.send('goodbye men')
 		await client.close()
 
+	elif message.content.startswith('$thunderstruck'):
+		musicChannel = client.get_channel(726164235088035851) #lol bad hardcoding
+		await musicChannel.send('-p thunderstruck')
+
+	elif message.content.startswith('$snowflake'):
+		theChannel = message.channel.id
+		await message.channel.send('{0}'.format(message.channel.id))
+
 client.run(config_keys['config'])
