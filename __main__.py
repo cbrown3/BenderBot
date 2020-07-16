@@ -4,6 +4,7 @@ import json
 import ffmpeg
 import random
 import discord.ext.commands as cmds
+import threading
 
 
 # Card stuff
@@ -85,13 +86,21 @@ async def kcquit(ctx):
 
 
 # thunderstruck player
+def timer_done(vc):
+    print("timer is finished")
+    vc.play(discord.FFmpegPCMAudio(executable="C:/ffmpeg/bin/ffmpeg.exe",
+                                   source="Sounds/thunderstruck.mp3"),
+            after=lambda e: print('done playing', e))
+
+
 @bot.command(name='thunderstruck', help='plays thunderstruck', pass_context=True)
 async def thunderstruck(ctx):
     channel = ctx.message.author.voice.channel
     vc = await channel.connect()
-    vc.play(discord.FFmpegPCMAudio(executable="C:/ffmpeg/bin/ffmpeg.exe",
-                                   source="Sounds/thunderstruck.mp3"),
-            after=lambda e: print('done playing', e))
+
+    await ctx.send("Playing Thunderstruck in 10 seconds!")
+    timer = threading.Timer(10.0, timer_done, args=[vc])
+    start_time = timer.start()
 
 
 # Opens url for gilmour's dream car
