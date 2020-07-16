@@ -5,6 +5,7 @@ import ffmpeg
 import random
 import discord.ext.commands as cmds
 import threading
+import urllib
 
 
 # Card stuff
@@ -131,14 +132,6 @@ async def gilmoursdreamcar(ctx):
         '2010%20by%20Top%20Gear%20magazine')
 
 
-# @roll.error
-# async def roll_error(ctx, error):
-#     if isinstance(error, cmds.MissingRequiredArgument):
-#         await ctx.send('Usage: $roll_dice <number_of_dice> <number_of_sides>')
-#     if isinstance(error, cmds.BadArgument):
-#         await ctx.send('Bad Argument')
-
-
 # kills the brewrobot instance for dev purposes
 @bot.command(name='killbrew', help='Kills the brewrobot.')
 async def killbrew(ctx):
@@ -162,6 +155,50 @@ async def happyhour(ctx):
     sender_mention = ctx.message.author.mention
     await recipient_dm.send(
         'Cheers! {0} invites you to Happy Hour in {1}!'.format(sender_mention, ctx.message.channel.guild.name))
+
+
+# checks drink database api for ingredient
+@bot.command(name='makeme', help='')
+async def makeme(ctx, *args):
+    ingredients = []
+    for arg in args:
+        ingredients.append(str(arg))
+    url = urllib.request.urlopen("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i={}".format(ingredients[0]))
+    data = json.loads(url.read().decode())
+    drink_dic = data["drinks"]
+    separator = "\n"
+    drink_list = []
+    strlength = 0
+
+    for drink in drink_dic:
+        strlength += (len(drink["strDrink"]) + 100)
+        print(strlength)
+        if strlength > 2000:
+            embed = discord.Embed(description=separator.join(drink_list))
+            await ctx.send("", embed=embed)
+            drink_list = []
+            strlength = len(drink["strDrink"]) + 100
+        drink_list.append("[{}](https://www.thecocktaildb.com/drink/{})".format(drink["strDrink"], drink["idDrink"]))
+
+    print(drink_list)
+    print(separator.join(drink_list))
+    embed = discord.Embed(description=separator.join(drink_list))
+    await ctx.send("", embed=embed)
+
+@makeme.error
+async def makeme_error(ctx, error):
+    if isinstance(error, cmds.MissingRequiredArgument):
+        await ctx.send('Usage: $makeme <ingredient>')
+    if isinstance(error, cmds.BadArgument):
+        await ctx.send('Bad Argument')
+
+# @roll.error
+# async def roll_error(ctx, error):
+#     if isinstance(error, cmds.MissingRequiredArgument):
+#         await ctx.send('Usage: $roll_dice <number_of_dice> <number_of_sides>')
+#     if isinstance(error, cmds.BadArgument):
+#         await ctx.send('Bad Argument')
+
 
 
 # runs the bot
