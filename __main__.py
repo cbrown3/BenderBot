@@ -5,8 +5,6 @@ import ffmpeg
 import random
 import discord.ext.commands as cmds
 
-
-
 # Card stuff
 class Card:
     def __init__(self, value, color):
@@ -19,7 +17,6 @@ faces = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', '
 kcrules = ['Waterfall', 'Give Drink', 'Take Drink', 'Floor', 'Guys', 'Chicks', 'Heaven', 'Mate', 'Rhyme', 'Categories',
            'Never have I ever', 'Question-master', 'New Rule']
 deck = [Card(value, color) for value in faces for color in colors]
-
 
 # json join to discord
 filename = 'config.json'
@@ -41,18 +38,47 @@ playerqueue = []
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 
+# join the player queue
+@bot.command(name='join', help='adds the joining player to the queue')
+async def addPlayer2Queue(ctx):
+    playerqueue.append(ctx.author.name)
+    await ctx.send('{0} is now playing games!'.format(ctx.author.mention))
+
+# leave the player queue
+@bot.command(name='leave', help='removes the leaving player from the queue')
+async def removePlayerFromQueue(ctx):
+    playerqueue.remove(ctx.author.name)
+    await ctx.send('{0} quit the game.'.format(ctx.author.mention))
 
 # kings cup initalizer
 @bot.command(name='kingscup', help='Plays kings cup with all people mentioned')
-async def kingscup(ctx, *args):
+async def kingscup(ctx):
     global currdeck, playerqueue, kclistening
     await ctx.send('{} wants to play kings cup!'.format(ctx.author))
     currdeck = deck.copy()
-    await ctx.send('Playing with {}'.format(', '.join(args)))
+    await ctx.send('Playing with {}'.format(', '.join(playerqueue)))
     random.shuffle(currdeck)
-    for p in args:
-        playerqueue.append(p)
     kclistening = 1
+
+
+@bot.command(name='kcnext')
+async def next(ctx):
+    global currdeck, playerqueue, kclistening, kcrules, faces
+    if kclistening == 0:
+        await ctx.send('Kings Cup not Initialized')
+        return
+    else:
+        curcard = currdeck.pop()
+        currentPlayer = playerqueue.pop(0)
+        await ctx.send(
+            '{} got {} of {}! They must {}'.format(currentPlayer, curcard.value, curcard.color,
+                                                   kcrules[faces.index(curcard.value)]))
+        playerqueue.append(currentPlayer)
+        undertab = int(52 - len(deck))
+        random_value = int(random.choice(range(1, 30)))
+        if random_value < undertab:
+            await ctx.send('TAB POPPED! {}')
+            kclistening = 0
 
 
 @bot.command(name='thunderstruck', help='plays thunderstruck', pass_context=True)
@@ -64,36 +90,10 @@ async def thunderstruck(ctx):
             after=lambda e: print('done playing', e))
 
 
-@bot.command(name='kcnext')
-async def next(ctx):
-    global currdeck, playerqueue, kclistening, kcrules, faces
-    if kclistening == 0:
-        await ctx.send('Kings Cup not Initialized')
-        return
-    else:
-        curcard = currdeck.pop()
-        await ctx.send(
-            '{} got {} of {}! They must {}'.format(playerqueue[0], curcard.value, curcard.color,
-                                                   kcrules[faces.index(curcard.value)]))
-        undertab = int(52 - len(deck))
-        random_value = int(random.choice(range(1, 30)))
-        if random_value < undertab:
-            await ctx.send('TAB POPPED! {}')
-            kclistening = 0
-
-
 @bot.command(name='gilmoursdreamcar', help='gilmour dream car')
 async def gilmoursdreamcar(ctx):
     await ctx.send(
         'https://en.wikipedia.org/wiki/Koenigsegg_Agera#:~:text=The%20Koenigsegg%20Agera%20is%20a,2010%20by%20Top%20Gear%20magazine')
-
-
-# @roll.error
-# async def roll_error(ctx, error):
-#     if isinstance(error, cmds.MissingRequiredArgument):
-#         await ctx.send('Usage: $roll_dice <number_of_dice> <number_of_sides>')
-#     if isinstance(error, cmds.BadArgument):
-#         await ctx.send('Bad Argument')
 
 
 @bot.command(name='killbrew', help='Kills the brewrobot.')
