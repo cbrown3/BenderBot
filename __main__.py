@@ -88,7 +88,7 @@ async def kcquit(ctx):
 # thunderstruck player
 def timer_done(vc):
     print("timer is finished")
-    vc.play(discord.FFmpegPCMAudio(executable="C:/ffmpeg/bin/ffmpeg.exe",
+    vc.play(discord.FFmpegPCMAudio(executable="ffmpeg/bin/ffmpeg.exe",
                                    source="Sounds/thunderstruck.mp3"),
             after=lambda e: print('done playing', e))
 
