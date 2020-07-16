@@ -4,6 +4,7 @@ import json
 import ffmpeg
 import random
 import discord.ext.commands as cmds
+import threading
 
 
 # Card stuff
@@ -77,7 +78,7 @@ async def next(ctx):
 async def thunderstruck(ctx):
     channel = ctx.message.author.voice.channel
     vc = await channel.connect()
-    vc.play(discord.FFmpegPCMAudio(executable="C:/ffmpeg/bin/ffmpeg.exe",
+    vc.play(discord.FFmpegPCMAudio(executable="ffmpeg/bin/ffmpeg.exe",
                                    source="Sounds/thunderstruck.mp3"),
             after=lambda e: print('done playing', e))
 
