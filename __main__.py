@@ -54,8 +54,8 @@ async def kingscup(ctx, *args):
 
 
 # kings cup next card
-@bot.command(name='kcnext')
-async def next(ctx):
+@bot.command(name='kcnext', help='pulls the next kings cup card')
+async def kcnext(ctx):
     global currdeck, playerqueue, kclistening, kcrules, faces
     if kclistening == 0:
         await ctx.send('Kings Cup not Initialized')
@@ -70,6 +70,18 @@ async def next(ctx):
         if random_value < undertab:
             await ctx.send('TAB POPPED! {}')
             kclistening = 0
+
+
+# Quit the kings cup game
+@bot.command(name='kcquit', help='quits playing kings cup')
+async def kcquit(ctx):
+    global kclistening
+    if kclistening == 0:
+        await ctx.send('Kings Cup not Initialized')
+    else:
+        await ctx.send('Closing Kings Cup')
+        kclistening = 0
+        return
 
 
 # thunderstruck player
