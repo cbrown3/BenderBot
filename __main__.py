@@ -6,7 +6,6 @@ import random
 import discord.ext.commands as cmds
 
 
-
 # Card stuff
 class Card:
     def __init__(self, value, color):
@@ -19,7 +18,6 @@ faces = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', '
 kcrules = ['Waterfall', 'Give Drink', 'Take Drink', 'Floor', 'Guys', 'Chicks', 'Heaven', 'Mate', 'Rhyme', 'Categories',
            'Never have I ever', 'Question-master', 'New Rule']
 deck = [Card(value, color) for value in faces for color in colors]
-
 
 # json join to discord
 filename = 'config.json'
@@ -55,15 +53,7 @@ async def kingscup(ctx, *args):
     kclistening = 1
 
 
-@bot.command(name='thunderstruck', help='plays thunderstruck', pass_context=True)
-async def thunderstruck(ctx):
-    channel = ctx.message.author.voice.channel
-    vc = await channel.connect()
-    vc.play(discord.FFmpegPCMAudio(executable="C:/ffmpeg/bin/ffmpeg.exe",
-                                   source="Sounds/thunderstruck.mp3"),
-            after=lambda e: print('done playing', e))
-
-
+# kings cup next card
 @bot.command(name='kcnext')
 async def next(ctx):
     global currdeck, playerqueue, kclistening, kcrules, faces
@@ -82,10 +72,22 @@ async def next(ctx):
             kclistening = 0
 
 
+# thunderstruck player
+@bot.command(name='thunderstruck', help='plays thunderstruck', pass_context=True)
+async def thunderstruck(ctx):
+    channel = ctx.message.author.voice.channel
+    vc = await channel.connect()
+    vc.play(discord.FFmpegPCMAudio(executable="C:/ffmpeg/bin/ffmpeg.exe",
+                                   source="Sounds/thunderstruck.mp3"),
+            after=lambda e: print('done playing', e))
+
+
+# Opens url for gilmour's dream car
 @bot.command(name='gilmoursdreamcar', help='gilmour dream car')
 async def gilmoursdreamcar(ctx):
     await ctx.send(
-        'https://en.wikipedia.org/wiki/Koenigsegg_Agera#:~:text=The%20Koenigsegg%20Agera%20is%20a,2010%20by%20Top%20Gear%20magazine')
+        'https://en.wikipedia.org/wiki/Koenigsegg_Agera#:~:text=The%20Koenigsegg%20Agera%20is%20a,'
+        '2010%20by%20Top%20Gear%20magazine')
 
 
 # @roll.error
@@ -96,12 +98,14 @@ async def gilmoursdreamcar(ctx):
 #         await ctx.send('Bad Argument')
 
 
+# kills the brewrobot instance for dev purposes
 @bot.command(name='killbrew', help='Kills the brewrobot.')
 async def killbrew(ctx):
     await ctx.send('Killing instance')
     await bot.close()
 
 
+# sends a message to a user to join them for happy hour
 @bot.command(name='happyhour', help='runs happy hour routine')
 async def happyhour(ctx):
     recipient = ctx.message.content.split()[1]
@@ -118,4 +122,6 @@ async def happyhour(ctx):
     await recipient_dm.send(
         'Cheers! {0} invites you to Happy Hour in {1}!'.format(sender_mention, ctx.message.channel.guild.name))
 
+
+# runs the bot
 bot.run(config_keys['config'])
