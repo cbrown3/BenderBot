@@ -26,10 +26,21 @@ with open(filename, 'r') as f:
 bot = cmds.Bot(command_prefix='$')
 client = discord.Client()
 
-# global deck listening
-kclistening = 0
+# global state machine listening
+kclistening = False
+thunderlistening = False
+
+# current card deck and player queue
 currdeck = []
 playerqueue = []
+
+
+# state machine
+def getCurrentState():
+    if kclistening or thunderlistening:
+        return True
+    else:
+        return False
 
 
 # client logged in
@@ -52,7 +63,11 @@ async def removePlayerFromQueue(ctx):
 # kings cup initalizer
 @bot.command(name='kingscup', help='Plays kings cup with all people mentioned')
 async def kingscup(ctx):
+    if getCurrentState():
+        await ctx.send("Already playing a game")
+        return
     global currdeck, playerqueue, kclistening
+    kclistening = True
     await ctx.send('{} wants to play kings cup!'.format(ctx.author))
     currdeck = deck.copy()
     await ctx.send('Playing with {}'.format(', '.join(playerqueue)))
@@ -61,10 +76,10 @@ async def kingscup(ctx):
 
 
 # kings cup next card
-@bot.command(name='kcnext')
-async def next(ctx):
+@bot.command(name='kcnext', help='pulls the next kings cup card')
+async def kcnext(ctx):
     global currdeck, playerqueue, kclistening, kcrules, faces
-    if kclistening == 0:
+    if kclistening is False:
         await ctx.send('Kings Cup not Initialized')
         return
     else:
@@ -80,6 +95,19 @@ async def next(ctx):
             await ctx.send('TAB POPPED! {}')
             kclistening = 0
 
+
+# Quit the kings cup game
+@bot.command(name='kcquit', help='quits playing kings cup')
+async def kcquit(ctx):
+    global kclistening
+    if kclistening is False:
+        await ctx.send('Kings Cup not Initialized')
+    else:
+        await ctx.send('Closing Kings Cup')
+        kclistening = 0
+        return
+
+
 # thunderstruck player
 def timer_done(vc):
     print("timer is finished")
@@ -89,6 +117,11 @@ def timer_done(vc):
 
 @bot.command(name='thunderstruck', help='plays thunderstruck', pass_context=True)
 async def thunderstruck(ctx):
+    if getCurrentState():
+        await ctx.send("Already playing a game")
+        return
+    global thunderlistening
+    thunderlistening = True
     channel = ctx.message.author.voice.channel
     vc = await channel.connect()
     await ctx.send("Playing Thunderstruck in 10 seconds!")
