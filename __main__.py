@@ -147,7 +147,7 @@ async def thunderstruck(ctx):
     channel = ctx.message.author.voice.channel
     vc = await channel.connect()
     await ctx.send("Playing Thunderstruck in 10 seconds!")
-    await ctx.send('Playing with {}'.format(', '.join(playerqueue)))
+    await ctx.send('Playing with {}'.format(', '.join(playerqueue.getPlayerNames())))
     timer = threading.Timer(10.0, lambda: print("timer is finished")).start()
     time.sleep(10)
     vc.play(discord.FFmpegPCMAudio(executable="ffmpeg/bin/ffmpeg.exe",
