@@ -69,7 +69,6 @@ async def kingscup(ctx, *args):
         playerqueue.append(p)
 
 
-
 # kings cup next card
 @bot.command(name='kcnext', help='pulls the next kings cup card')
 async def kcnext(ctx):
@@ -159,18 +158,37 @@ async def happyhour(ctx):
 
 # checks drink database api for ingredient
 @bot.command(name='makeme', help='')
-async def makeme(ctx, *args):
-    ingredients = []
+async def makeme(ctx):
+    args = []
+    ctx.message.content = ctx.message.content[7:]
+    print(ctx.message.content)
+    variables = ctx.message.content.split(",")
+    for variable in variables:
+        args.append(variable.strip(" "))
     for arg in args:
-        ingredients.append(str(arg))
-    url = urllib.request.urlopen("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i={}".format(ingredients[0]))
-    data = json.loads(url.read().decode())
-    drink_dic = data["drinks"]
+        print (arg)
+    data = []
+    for arg in args:
+        arg = arg.replace(" ", "%20")
+        print(arg)
+        url = urllib.request.urlopen("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i={}".format(arg))
+        data.append(json.loads(url.read().decode())["drinks"])
+
+    temp_list = data.pop(0)
+    result_list = temp_list
+    while len(data) > 0:
+        result_list = []
+        for element in temp_list:
+            if element in data[0]:
+                result_list.append(element)
+        data.pop(0)
+        temp_list = result_list
+
     separator = "\n"
     drink_list = []
     strlength = 0
 
-    for drink in drink_dic:
+    for drink in result_list:
         strlength += (len(drink["strDrink"]) + 100)
         print(strlength)
         if strlength > 2000:
@@ -185,6 +203,7 @@ async def makeme(ctx, *args):
     embed = discord.Embed(description=separator.join(drink_list))
     await ctx.send("", embed=embed)
 
+
 @makeme.error
 async def makeme_error(ctx, error):
     if isinstance(error, cmds.MissingRequiredArgument):
@@ -192,13 +211,13 @@ async def makeme_error(ctx, error):
     if isinstance(error, cmds.BadArgument):
         await ctx.send('Bad Argument')
 
+
 # @roll.error
 # async def roll_error(ctx, error):
 #     if isinstance(error, cmds.MissingRequiredArgument):
 #         await ctx.send('Usage: $roll_dice <number_of_dice> <number_of_sides>')
 #     if isinstance(error, cmds.BadArgument):
 #         await ctx.send('Bad Argument')
-
 
 
 # runs the bot
