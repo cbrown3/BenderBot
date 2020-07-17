@@ -6,6 +6,28 @@ import asyncio
 import random
 import discord.ext.commands as cmds
 
+#PlayerQueue stuff
+class PlayerQueue:
+    def __init__(self):
+        self.players = []
+        self.numPlayers = 0
+
+    def addPlayer2Queue(self, player):
+        self.players.append(player)
+        self.numPlayers += 1
+
+    def removePlayerFromQueue(self, player):
+        self.players.remove(player)
+        self.numPlayers -= 1
+
+    def getPlayerNames(self):
+        result = []
+        for player in self.players:
+            result.append(player.name)
+        return result
+
+    def nextPlayer(self):
+        return self.players.pop(0)
 
 # Card stuff
 class Card:
@@ -35,7 +57,7 @@ thunderlistening = False
 
 # current card deck and player queue
 currdeck = []
-playerqueue = []
+playerqueue = PlayerQueue()
 
 
 # state machine
@@ -54,15 +76,15 @@ async def on_ready():
 
 # join the player queue
 @bot.command(name='join', help='adds the joining player to the queue')
-async def addPlayer2Queue(ctx):
-    playerqueue.append(ctx.author.name)
+async def joinQueue(ctx):
+    playerqueue.addPlayer2Queue(ctx.author)
     await ctx.send('{0} is now playing games!'.format(ctx.author.mention))
 
 
 # leave the player queue
 @bot.command(name='leave', help='removes the leaving player from the queue')
-async def removePlayerFromQueue(ctx):
-    playerqueue.remove(ctx.author.name)
+async def leaveQueue(ctx):
+    playerqueue.removePlayerFromQueue(ctx.author)
     await ctx.send('{0} quit the game.'.format(ctx.author.mention))
 
 
@@ -76,7 +98,7 @@ async def kingscup(ctx):
     kclistening = True
     await ctx.send('{} wants to play kings cup!'.format(ctx.author))
     currdeck = deck.copy()
-    await ctx.send('Playing with {}'.format(', '.join(playerqueue)))
+    await ctx.send('Playing with {}'.format(', '.join(playerqueue.getPlayerNames())))
     random.shuffle(currdeck)
     kclistening = 1
 
@@ -90,11 +112,11 @@ async def kcnext(ctx):
         return
     else:
         curcard = currdeck.pop()
-        currentPlayer = playerqueue.pop(0)
+        currentPlayer = playerqueue.nextPlayer()
         await ctx.send(
-            '{} got {} of {}! They must {}'.format(currentPlayer, curcard.value, curcard.color,
+            '{} got {} of {}! They must {}'.format(currentPlayer.mention, curcard.value, curcard.color,
                                                    kcrules[faces.index(curcard.value)]))
-        playerqueue.append(currentPlayer)
+        playerqueue.addPlayer2Queue(currentPlayer)
         undertab = int(52 - len(deck))
         random_value = int(random.choice(range(1, 30)))
         if random_value < undertab:
