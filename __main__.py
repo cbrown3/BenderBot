@@ -1,11 +1,9 @@
-import threading
-import discord
 import json
 import time
 import asyncio
 import random
+import discord
 import discord.ext.commands as cmds
-
 import threading
 import urllib
 
@@ -168,172 +166,14 @@ async def thunderstruck(ctx):
         current_time = round(time.time() - start_time, 1)
 
         # tells player to drink at each specific timestamps where 'thunder' is said
+        thunderwhen = [29.0, 32.9, 36.5, 39.8, 43.5, 47.1, 50.8, 54.5, 58.0, 61.5, 70.5, 78.7, 85.0, 92.0, 111.5,
+                       161.5, 165.2, 169.1, 172.7, 222.8, 226.3, 229.9, 233.5, 251.0, 254.8, 257.0, 258.0, 261.9,
+                       265.3, 268.7, 272.2, 275.8, 278.9]
         if past_time != current_time:
-            if current_time == 29.0:
+            if current_time in thunderwhen:
                 currentPlayer = playerqueue.nextPlayer()
                 await ctx.send('{} DRINK!'.format(currentPlayer.mention))
                 playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 32.9:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 36.5:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 39.8:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 43.5:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 47.1:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 50.8:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 54.5:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 58.0:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 61.5:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 70.5:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 78.7:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 85.0:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 92.0:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 111.5:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 161.5:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 165.2:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 169.1:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 172.7:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 222.8:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 226.3:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 229.9:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 233.5:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 251.0:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 254.8:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 257.0:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 258.0:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 261.9:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 265.3:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 268.7:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 272.2:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 275.8:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
-            if current_time == 278.9:
-                currentPlayer = playerqueue.nextPlayer()
-                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
-                playerqueue.addPlayer2Queue(currentPlayer)
-
 
 # Opens url for gilmour's dream car
 @bot.command(name='gilmoursdreamcar', help='gilmour dream car')
