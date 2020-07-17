@@ -166,169 +166,169 @@ async def thunderstruck(ctx):
         # tells player to drink at each specific timestamps where 'thunder' is said
         if past_time != current_time:
             if current_time == 29.0:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 32.9:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 36.5:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 39.8:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 43.5:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 47.1:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 50.8:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 54.5:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 58.0:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 61.5:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 70.5:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 78.7:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 85.0:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 92.0:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 111.5:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 161.5:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 165.2:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 169.1:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 172.7:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 222.8:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 226.3:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 229.9:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 233.5:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 251.0:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 254.8:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 257.0:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 258.0:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 261.9:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 265.3:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 268.7:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 272.2:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 275.8:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
             if current_time == 278.9:
-                currentPlayer = playerqueue.pop(0)
-                await ctx.send('{} DRINK!'.format(currentPlayer))
-                playerqueue.append(currentPlayer)
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
 
 # Opens url for gilmour's dream car
