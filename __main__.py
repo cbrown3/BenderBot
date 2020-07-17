@@ -125,6 +125,7 @@ async def thunderstruck(ctx):
     channel = ctx.message.author.voice.channel
     vc = await channel.connect()
     await ctx.send("Playing Thunderstruck in 10 seconds!")
+    await ctx.send('Playing with {}'.format(', '.join(playerqueue)))
     timer = threading.Timer(10.0, lambda: print("timer is finished")).start()
     time.sleep(10)
     vc.play(discord.FFmpegPCMAudio(executable="ffmpeg/bin/ffmpeg.exe",
@@ -143,103 +144,169 @@ async def thunderstruck(ctx):
         # tells player to drink at each specific timestamps where 'thunder' is said
         if past_time != current_time:
             if current_time == 29.0:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 32.9:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 36.5:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 39.8:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 43.5:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 47.1:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 50.8:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 54.5:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 58.0:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 61.5:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 70.5:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 78.7:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 85.0:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 92.0:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 111.5:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 161.5:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 165.2:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 169.1:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 172.7:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 222.8:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 226.3:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 229.9:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 233.5:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 251.0:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 254.8:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 257.0:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 258.0:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 261.9:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 265.3:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 268.7:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 272.2:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 275.8:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
             if current_time == 278.9:
-                await ctx.send("DRINK!")
+                currentPlayer = playerqueue.pop(0)
+                await ctx.send('{} DRINK!'.format(currentPlayer))
+                playerqueue.append(currentPlayer)
 
 
 # Opens url for gilmour's dream car
