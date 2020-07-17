@@ -1,7 +1,7 @@
-import youtube_dl
 import discord
 import json
-import ffmpeg
+import time
+import asyncio
 import random
 import discord.ext.commands as cmds
 import threading
@@ -74,21 +74,127 @@ async def next(ctx):
 
 
 # thunderstruck player
-def timer_done(vc):
-    print("timer is finished")
-    vc.play(discord.FFmpegPCMAudio(executable="C:/ffmpeg/bin/ffmpeg.exe",
-                                   source="Sounds/thunderstruck.mp3"),
-            after=lambda e: print('done playing', e))
-
-
 @bot.command(name='thunderstruck', help='plays thunderstruck', pass_context=True)
 async def thunderstruck(ctx):
     channel = ctx.message.author.voice.channel
     vc = await channel.connect()
 
     await ctx.send("Playing Thunderstruck in 10 seconds!")
-    timer = threading.Timer(10.0, timer_done, args=[vc])
-    start_time = timer.start()
+    timer = threading.Timer(10.0, lambda: print("timer is finished")).start()
+    time.sleep(10)
+    vc.play(discord.FFmpegPCMAudio(executable="ffmpeg/bin/ffmpeg.exe",
+                                   source="Sounds/thunderstruck.mp3"),
+            after=lambda e: print('done playing', e))
+
+    start_time = time.time()
+    current_time = time.time() - start_time
+    past_time = current_time
+
+    while vc.is_playing():
+        await asyncio.sleep(0.01)
+        past_time = current_time
+        current_time = round(time.time() - start_time, 1)
+
+# tells player to drink at each specific timestamps where 'thunder' is said
+        if past_time != current_time:
+            if current_time == 29.0:
+                await ctx.send("DRINK!")
+
+            if current_time == 32.9:
+                await ctx.send("DRINK!")
+
+            if current_time == 36.5:
+                await ctx.send("DRINK!")
+
+            if current_time == 39.8:
+                await ctx.send("DRINK!")
+
+            if current_time == 43.5:
+                await ctx.send("DRINK!")
+
+            if current_time == 47.1:
+                await ctx.send("DRINK!")
+
+            if current_time == 50.8:
+                await ctx.send("DRINK!")
+
+            if current_time == 54.5:
+                await ctx.send("DRINK!")
+
+            if current_time == 58.0:
+                await ctx.send("DRINK!")
+
+            if current_time == 61.5:
+                await ctx.send("DRINK!")
+
+            if current_time == 70.5:
+                await ctx.send("DRINK!")
+
+            if current_time == 78.7:
+                await ctx.send("DRINK!")
+
+            if current_time == 85.0:
+                await ctx.send("DRINK!")
+
+            if current_time == 92.0:
+                await ctx.send("DRINK!")
+
+            if current_time == 111.5:
+                await ctx.send("DRINK!")
+
+            if current_time == 161.5:
+                await ctx.send("DRINK!")
+
+            if current_time == 165.2:
+                await ctx.send("DRINK!")
+
+            if current_time == 169.1:
+                await ctx.send("DRINK!")
+
+            if current_time == 172.7:
+                await ctx.send("DRINK!")
+
+            if current_time == 222.8:
+                await ctx.send("DRINK!")
+
+            if current_time == 226.3:
+                await ctx.send("DRINK!")
+
+            if current_time == 229.9:
+                await ctx.send("DRINK!")
+
+            if current_time == 233.5:
+                await ctx.send("DRINK!")
+
+            if current_time == 251.0:
+                await ctx.send("DRINK!")
+
+            if current_time == 254.8:
+                await ctx.send("DRINK!")
+
+            if current_time == 257.0:
+                await ctx.send("DRINK!")
+
+            if current_time == 258.0:
+                await ctx.send("DRINK!")
+
+            if current_time == 261.9:
+                await ctx.send("DRINK!")
+
+            if current_time == 265.3:
+                await ctx.send("DRINK!")
+
+            if current_time == 268.7:
+                await ctx.send("DRINK!")
+
+            if current_time == 272.2:
+                await ctx.send("DRINK!")
+
+            if current_time == 275.8:
+                await ctx.send("DRINK!")
+
+            if current_time == 278.9:
+                await ctx.send("DRINK!")
 
 
 # Opens url for gilmour's dream car
