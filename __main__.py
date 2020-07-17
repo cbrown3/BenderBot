@@ -1,11 +1,37 @@
-import youtube_dl
+import threading
 import discord
 import json
-import ffmpeg
+import time
+import asyncio
 import random
 import discord.ext.commands as cmds
+
 import threading
 import urllib
+
+
+#PlayerQueue stuff
+class PlayerQueue:
+    def __init__(self):
+        self.players = []
+        self.numPlayers = 0
+
+    def addPlayer2Queue(self, player):
+        self.players.append(player)
+        self.numPlayers += 1
+
+    def removePlayerFromQueue(self, player):
+        self.players.remove(player)
+        self.numPlayers -= 1
+
+    def getPlayerNames(self):
+        result = []
+        for player in self.players:
+            result.append(player.name)
+        return result
+
+    def nextPlayer(self):
+        return self.players.pop(0)
 
 
 # Card stuff
@@ -36,7 +62,7 @@ thunderlistening = False
 
 # current card deck and player queue
 currdeck = []
-playerqueue = []
+playerqueue = PlayerQueue()
 
 
 # state machine
@@ -53,9 +79,23 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 
 
-# kings cup initalizer
+# join the player queue
+@bot.command(name='join', help='adds the joining player to the queue')
+async def joinQueue(ctx):
+    playerqueue.addPlayer2Queue(ctx.author)
+    await ctx.send('{0} is now playing games!'.format(ctx.author.mention))
+
+
+# leave the player queue
+@bot.command(name='leave', help='removes the leaving player from the queue')
+async def leaveQueue(ctx):
+    playerqueue.removePlayerFromQueue(ctx.author)
+    await ctx.send('{0} quit the game.'.format(ctx.author.mention))
+
+
+# kings cup initializer
 @bot.command(name='kingscup', help='Plays kings cup with all people mentioned')
-async def kingscup(ctx, *args):
+async def kingscup(ctx):
     if getCurrentState():
         await ctx.send("Already playing a game")
         return
@@ -63,11 +103,9 @@ async def kingscup(ctx, *args):
     kclistening = True
     await ctx.send('{} wants to play kings cup!'.format(ctx.author))
     currdeck = deck.copy()
-    await ctx.send('Playing with {}'.format(', '.join(args)))
+    await ctx.send('Playing with {}'.format(', '.join(playerqueue.getPlayerNames())))
     random.shuffle(currdeck)
-    for p in args:
-        playerqueue.append(p)
-
+    kclistening = 1
 
 # kings cup next card
 @bot.command(name='kcnext', help='pulls the next kings cup card')
@@ -78,9 +116,11 @@ async def kcnext(ctx):
         return
     else:
         curcard = currdeck.pop()
+        currentPlayer = playerqueue.nextPlayer()
         await ctx.send(
-            '{} got {} of {}! They must {}'.format(playerqueue[0], curcard.value, curcard.color,
+            '{} got {} of {}! They must {}'.format(currentPlayer.mention, curcard.value, curcard.color,
                                                    kcrules[faces.index(curcard.value)]))
+        playerqueue.addPlayer2Queue(currentPlayer)
         undertab = int(52 - len(deck))
         random_value = int(random.choice(range(1, 30)))
         if random_value < undertab:
@@ -101,13 +141,6 @@ async def kcquit(ctx):
 
 
 # thunderstruck player
-def timer_done(vc):
-    print("timer is finished")
-    vc.play(discord.FFmpegPCMAudio(executable="ffmpeg/bin/ffmpeg.exe",
-                                   source="Sounds/thunderstruck.mp3"),
-            after=lambda e: print('done playing', e))
-
-
 @bot.command(name='thunderstruck', help='plays thunderstruck', pass_context=True)
 async def thunderstruck(ctx):
     if getCurrentState():
@@ -117,10 +150,189 @@ async def thunderstruck(ctx):
     thunderlistening = True
     channel = ctx.message.author.voice.channel
     vc = await channel.connect()
-
     await ctx.send("Playing Thunderstruck in 10 seconds!")
-    timer = threading.Timer(10.0, timer_done, args=[vc])
-    start_time = timer.start()
+    await ctx.send('Playing with {}'.format(', '.join(playerqueue.getPlayerNames())))
+    timer = threading.Timer(10.0, lambda: print("timer is finished")).start()
+    time.sleep(10)
+    vc.play(discord.FFmpegPCMAudio(executable="ffmpeg/bin/ffmpeg.exe",
+                                   source="Sounds/thunderstruck.mp3"),
+            after=lambda e: print('done playing', e))
+
+    start_time = time.time()
+    current_time = time.time() - start_time
+    past_time = current_time
+
+    while vc.is_playing():
+        await asyncio.sleep(0.01)
+        past_time = current_time
+        current_time = round(time.time() - start_time, 1)
+
+        # tells player to drink at each specific timestamps where 'thunder' is said
+        if past_time != current_time:
+            if current_time == 29.0:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 32.9:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 36.5:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 39.8:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 43.5:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 47.1:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 50.8:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 54.5:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 58.0:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 61.5:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 70.5:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 78.7:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 85.0:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 92.0:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 111.5:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 161.5:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 165.2:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 169.1:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 172.7:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 222.8:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 226.3:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 229.9:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 233.5:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 251.0:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 254.8:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 257.0:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 258.0:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 261.9:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 265.3:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 268.7:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 272.2:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 275.8:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
+
+            if current_time == 278.9:
+                currentPlayer = playerqueue.nextPlayer()
+                await ctx.send('{} DRINK!'.format(currentPlayer.mention))
+                playerqueue.addPlayer2Queue(currentPlayer)
 
 
 # Opens url for gilmour's dream car
