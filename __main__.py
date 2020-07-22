@@ -57,6 +57,7 @@ client = discord.Client()
 # global state machine listening
 kclistening = False
 thunderlistening = False
+hrlistening = False
 
 # current card deck and player queue
 currdeck = []
@@ -65,7 +66,7 @@ playerqueue = PlayerQueue()
 
 # state machine
 def getCurrentState():
-    if kclistening or thunderlistening:
+    if kclistening or thunderlistening or hrlistening:
         return True
     else:
         return False
@@ -89,6 +90,22 @@ async def joinQueue(ctx):
 async def leaveQueue(ctx):
     playerqueue.removePlayerFromQueue(ctx.author)
     await ctx.send('{0} quit the game.'.format(ctx.author.mention))
+
+# horse races initializer
+@bot.command(name='horseraces', help='horse race card game')
+async def horseraces(ctx):
+    if getCurrentState():
+        await ctx.send("Already playing a game")
+        return
+    global currdeck, playerqueue, hrlistening
+
+    await ctx.send('{} wants to play horse races!'.format(ctx.author.mention))
+    await ctx.send('Playing with {}'.format(', '.join(playerqueue.getPlayerNames())))
+    hrlistening = True
+    currdeck = deck.copy()
+    random.shuffle(currdeck)
+
+# horse race wager
 
 
 # kings cup initializer
