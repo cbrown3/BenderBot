@@ -166,7 +166,7 @@ async def thunderstruck(ctx):
         current_time = round(time.time() - start_time, 1)
 
         # tells player to drink at each specific timestamps where 'thunder' is said
-        thunderwhen = [29.0, 32.9, 36.5, 39.8, 43.5, 47.1, 50.8, 54.5, 58.0, 61.5, 70.5, 78.7, 85.0, 92.0, 111.5,
+        thunderwhen = [29.0, 32.9, 36.5, 39.8, 43.5, 47.1, 50.8, 54.5, 58.0, 61.5, 70.5, 77.9, 85.0, 92.0, 111.5,
                        161.5, 165.2, 169.1, 172.7, 222.8, 226.3, 229.9, 233.5, 251.0, 254.8, 257.0, 258.0, 261.9,
                        265.3, 268.7, 272.2, 275.8, 278.9]
         if past_time != current_time:
