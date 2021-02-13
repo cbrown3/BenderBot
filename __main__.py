@@ -6,9 +6,11 @@ import discord
 import discord.ext.commands as cmds
 import threading
 import urllib
+from bs4 import BeautifulSoup as soup
+from urllib.request import urlopen as uReq
 
 
-#PlayerQueue stuff
+# PlayerQueue stuff
 class PlayerQueue:
     def __init__(self):
         self.players = []
@@ -105,6 +107,7 @@ async def kingscup(ctx):
     random.shuffle(currdeck)
     kclistening = 1
 
+
 # kings cup next card
 @bot.command(name='kcnext', help='pulls the next kings cup card')
 async def kcnext(ctx):
@@ -166,14 +169,48 @@ async def thunderstruck(ctx):
         current_time = round(time.time() - start_time, 1)
 
         # tells player to drink at each specific timestamps where 'thunder' is said
-        thunderwhen = [29.0, 32.9, 36.5, 39.8, 43.5, 47.1, 50.8, 54.5, 58.0, 61.5, 70.5, 77.9, 85.0, 92.0, 111.5,
-                       161.5, 165.2, 169.1, 172.7, 222.8, 226.3, 229.9, 233.5, 251.0, 254.8, 257.0, 258.0, 261.9,
+        thunderwhen = [29.0, 32.9, 36.5, 39.8, 43.5, 47.1, 50.8, 54.5, 58.0, 61.5, 70.5, 77.9, 85.0, 92.0, 0, 111.5,
+                       161.5, 165.2, 169.1, 172.7, 222.8, 226.3, 229.9, 233.5, 251.0, 254.8, 257.0, 0, 258.0, 261.9,
                        265.3, 268.7, 272.2, 275.8, 278.9]
         if past_time != current_time:
             if current_time in thunderwhen:
                 currentPlayer = playerqueue.nextPlayer()
                 await ctx.send('{} DRINK!'.format(currentPlayer.mention))
                 playerqueue.addPlayer2Queue(currentPlayer)
+
+
+# Prints out the ruleset for drinking games for any movie/game/tv show
+@bot.command(name='drinkrules', help='gives you drinking rules for movies, games, and tv shows', pass_context=True)
+async def drinkrules(ctx):
+    if getCurrentState():
+        await ctx.send("Already playing a game")
+        return
+    global drinkruleslistening
+    drinkruleslistening = True
+
+    args = []
+    ctx.message.content = ctx.message.content[12:]
+    args = ctx.message.content.split(' ')
+    for arg in args:
+        print(arg)
+
+    if args[0] == 'movie':
+        print('searching for movie...')
+        url = 'http://www.reeldrinkinggames.com/movies.html'
+        uClient = uReq(url)
+        page_html = uClient.read()
+        uClient.close()
+        page_soup = soup(page_html, "html.parser")
+        containers = page_soup.find_all("li")
+        print(len(containers))
+
+    elif args[0] == 'vg':
+        print('searching for video game...')
+    elif args[0] == 'tv':
+        print('searching for tv show...')
+    else:
+        print('incorrect category search')
+
 
 # Opens url for gilmour's dream car
 @bot.command(name='gilmoursdreamcar', help='gilmour dream car')
@@ -218,7 +255,7 @@ async def makeme(ctx):
     for variable in variables:
         args.append(variable.strip(" "))
     for arg in args:
-        print (arg)
+        print(arg)
     data = []
     for arg in args:
         arg = arg.replace(" ", "%20")
